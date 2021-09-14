@@ -1,0 +1,64 @@
+## Generated mta.yaml based on template version 0.4.0
+## appName = teched-2021
+## language=nodejs; multitenant=false
+## approuter=
+_schema-version: '3.1'
+ID: riz.inno.teched-2021
+version: 1.0.0
+description: "TechEd 2021 Example."
+parameters:
+  enable-parallel-deployments: true
+   
+build-parameters:
+  before-all:
+   - builder: custom
+     commands:
+      - npm install --production
+      - npx -p @sap/cds-dk cds build --production
+
+modules:
+ # --------------------- SERVER MODULE ------------------------
+ - name: teched-2021-srv
+ # ------------------------------------------------------------
+   type: nodejs
+   path: gen/srv
+   parameters:
+     buildpack: nodejs_buildpack
+     memory: 200M
+     disk-quota: 250M
+   requires:
+    # Resources extracted from CAP configuration
+    - name: teched-2021-db
+   provides:
+    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
+      properties:
+        srv-url: ${default-url}
+
+ # -------------------- SIDECAR MODULE ------------------------
+ - name: teched-2021-db-deployer
+ # ------------------------------------------------------------
+   type: hdb
+   path: gen/db  
+   parameters:
+     buildpack: nodejs_buildpack
+   requires:
+    # 'hana' and 'xsuaa' resources extracted from CAP configuration
+    - name: teched-2021-db
+
+
+resources:
+ # services extracted from CAP configuration
+ # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+# ------------------------------------------------------------
+ - name: teched-2021-db
+# ------------------------------------------------------------
+   type: com.sap.xs.hdi-container
+   parameters:
+     service: hana  # or 'hanatrial' on trial landscapes
+     service-plan: hdi-shared
+     config:
+       schema: teched_2021
+   properties:
+     hdi-service-name: ${service-name}
+
+

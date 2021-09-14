@@ -1,0 +1,24 @@
+@serviceHost = http://localhost:4004
+@serviceName=/nssexample
+@rtlEntity=RealtimeLocations
+
+###
+# Check availability of the service
+GET {{serviceHost}}{{serviceName}}
+
+###
+# Read entities 
+GET {{serviceHost}}{{serviceName}}/{{rtlEntity}}
+
+### Write an entity
+POST {{serviceHost}}{{serviceName}}/{{rtlEntity}}
+Content-Type: application/json
+
+{
+   "rtDescription" : "Example Description",
+   "rtGeometry": "{\"type\":\"LineString\",\"coordinates\": [[102.0, 0.0], [103.0, 1.0],[104.0, 0.0], [105.0, 1.0]]}"
+//    "rtGeometry" :  
+}
+
+
+
