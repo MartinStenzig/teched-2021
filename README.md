@@ -29,3 +29,4 @@ You will use the NSS configuration app to configure the additional service
 6. Add the [Rest Test Script](./test/example-service.http)
 
 At this point you have the basic service that works locally and can be deployed (not working in the Cloud yet...).
+7. Added some [custom handlers](./srv/handlers/example.js) and some [supporting functions](./srv/handlers/supportfunctions.js)
