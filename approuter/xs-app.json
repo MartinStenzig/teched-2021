@@ -1,0 +1,17 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/do/logout"
+	},
+	"routes": [
+		{
+			"source": "^/(.*)",
+			"destination": "teched-2021-srv_api",
+			"httpMethods": [
+				"GET"
+			],
+			"authenticationType": "none"
+		}
+	]
+}

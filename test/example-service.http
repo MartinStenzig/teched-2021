@@ -1,4 +1,7 @@
-@serviceHost = http://localhost:4004
+# @serviceHost=http://localhost:4004
+@serviceHost=
+
+@approuter= 
 @serviceName=/nssexample
 @rtlEntity=RealtimeLocations
 
@@ -15,10 +18,32 @@ POST {{serviceHost}}{{serviceName}}/{{rtlEntity}}
 Content-Type: application/json
 
 {
-   "rtDescription" : "Example Description",
-   "rtGeometry": "{\"type\":\"LineString\",\"coordinates\": [[102.0, 0.0], [103.0, 1.0],[104.0, 0.0], [105.0, 1.0]]}"
-//    "rtGeometry" :  
+   "rtDescription" : "15th Ave",
+   "rtGeometry": "{\"type\":\"LineString\",\"coordinates\": [[-122.3147843110995, 47.59281877415624],[ -122.3143660036406, 47.592062181608846],[-122.31385268040664, 47.58999758736109],[ -122.31384105198693, 47.589986894208955],[ -122.31376990991075, 47.58965119900446],[-122.31382638727898, 47.58758380377679],[-122.31337471124317, 47.586642574199324],[-122.31339500087878, 47.582740842266695],[-122.31342726016024, 47.5804718347285],[-122.31343535782364, 47.57513358417102],[-122.31338696668195, 47.571634312346944],[-122.31350614926684, 47.56708176689081],[-122.3135060763507, 47.56420015733074],[-122.31360838749532, 47.563958575802396], [-122.31350612427607, 47.5635357993471],[-122.3134821460426, 47.55052734575138]]}",
+   "status" : 1,
+   "objType": "Road"
 }
 
+### DELETE an entity
+DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(92434f26-f0fc-4599-9214-e522e4b85c13)
 
+### Test GeoJSON Endpoint 
+GET {{serviceHost}}/geojson HTTP/1.1
 
+### Test GeoJSON Endpoint through app router
+GET {{approuter}}/geojson HTTP/1.1
+
+### Create Field Service Techs
+### Write an entity
+POST {{serviceHost}}{{serviceName}}/{{rtlEntity}}
+Content-Type: application/json
+
+{
+   "ID" : "6a321034-7615-46ab-b5af-241966b55188",
+   "rtDescription" : "Jayson Parker",
+   "rtGeometry": "{\"type\":\"Point\",\"coordinates\": [-122.3147843110995, 47.59281877415624]}",
+   "status" : 1,
+   "objType": "Tech"
+}
+### Delete Jayson
+DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(6a321034-7615-46ab-b5af-241966b55188)

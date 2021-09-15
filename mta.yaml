@@ -17,6 +17,45 @@ build-parameters:
       - npx -p @sap/cds-dk cds build --production
 
 modules:
+
+ # ------------------- APP ROUTER MODULE -----------------------
+ - name: teched-2021-router # Approuter Module channeling the traffic to the correct destination
+ # ------------------------------------------------------------
+   type: nodejs
+   path: approuter
+   parameters:
+      memory: 100M
+      buildpack: nodejs_buildpack
+   requires:
+      - name: teched-2021-srv_api
+        group: destinations
+        properties:
+          name: teched-2021-srv_api
+          url: ~{srv-url}
+          forwardAuthToken: true
+          timeout: 600000
+   properties:
+      COOKIES: >
+          { "SameSite": "None" }
+      CORS: >
+          [
+            {
+              "uriPattern": "^(.*)$",
+              "allowedOrigin": [ 
+                                { "host": "*.hana.ondemand.com", "protocol": "https" },
+                                { "host": "*.hana.ondemand.com", "protocol": "http" }
+              ],
+              "allowedMethods": ["GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE"],
+              "allowedHeaders": ["Origin", "Accept", "X-Requested-With", "Content-Type", 
+                                                    "Access-Control-Request-Method", 
+                                                    "Access-Control-Request-Headers", "Authorization", "X-Sap-Cid", 
+                                                    "X-Csrf-Token", "Accept-Language"],
+              "exposeHeaders": ["Accept", "Authorization", "X-Requested-With", "X-Sap-Cid", 
+                                                  "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", 
+                                                  "X-Csrf-Token", "Content-Type"]
+            }
+          ]
+
  # --------------------- SERVER MODULE ------------------------
  - name: teched-2021-srv
  # ------------------------------------------------------------
@@ -30,7 +69,7 @@ modules:
     # Resources extracted from CAP configuration
     - name: teched-2021-db
    provides:
-    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
+    - name: teched-2021-srv_api      # required by consumers of CAP services (e.g. approuter)
       properties:
         srv-url: ${default-url}
 
