@@ -8,6 +8,7 @@
     "dependencies": {
         "@sap/cds": "^5",
         "express": "^4",
+        "geojson": "^0.5.0",
         "hdb": "^0.18.3",
         "wkx": "^0.5.0"
     },

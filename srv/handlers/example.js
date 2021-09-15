@@ -15,29 +15,35 @@ class ExampleService extends cds.ApplicationService {
     // *************************
     // Read AFTER - handler
     // *************************
-    this.after('READ', 'RealtimeLocations', (req) => {
+    this.after('READ', 'RealtimeLocations', async (req) => {
 
-      // Loop over all result records
-      for (let z = 0; z < req.length; z++) {
+      // Get refence to the database
+      const db = await cds.connect.to("db")
 
-        // determine if geometry is defined
-        if (req[z].rtGeometry != undefined) {
+      // Revert to original processing if database is not HANA
+      if (db.kind == DB_KIND_HANA) {
 
-          // Parse the geometry from wkb 
-          let geometry = wkx.Geometry.parse(req[z].rtGeometry)
+        // Loop over all result records
+        for (let z = 0; z < req.length; z++) {
 
-          // generate the geoJSON 
-          let geoJSON = geometry.toGeoJSON();
+          // determine if geometry is defined
+          if (req[z].rtGeometry != undefined) {
 
-          // overwrite the current req
-          req[z].rtGeometry = JSON.stringify(geoJSON)
-        }
-        else {
-          // output warning level 
-          console.warn('rtGeometry is undefined')
+            // Parse the geometry from wkb 
+            let geometry = wkx.Geometry.parse(req[z].rtGeometry)
+
+            // generate the geoJSON 
+            let geoJSON = geometry.toGeoJSON();
+
+            // overwrite the current req
+            req[z].rtGeometry = JSON.stringify(geoJSON)
+          }
+          else {
+            // output warning level 
+            console.warn('rtGeometry is undefined')
+          }
         }
       }
-
       // Return request container 
       return req;
     })
