@@ -1,7 +1,7 @@
 # @serviceHost=http://localhost:4004
-@serviceHost=<your url>
+@serviceHost=<route to teched-2021-srv>
 
-@approuter=<your url>
+@approuter=<route to teched-2021-router>
 @serviceName=/nssexample
 @rtlEntity=RealtimeLocations
 
