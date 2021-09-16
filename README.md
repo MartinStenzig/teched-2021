@@ -37,12 +37,12 @@ In order to build a scenario that does not conflict with anything else we will c
     3. Create a new Layer
         - **Type:** Symbol
         - **Source Type:** GeoJSON
-        - **Service URL:** [route to app router module]/geojson
+        - **Service URL:** [route to app router module]/geojson/RealtimeLocations
         - **Layout JSON:** 
         ```json
         {
           "icon-image": ["match",
-                        ["get", "status"],
+                        ["get", "Status"],
                         1,"truck-green-50",
                         2,"truck-orange-50",
                         "truck-red-50"], 
@@ -82,8 +82,10 @@ In order to build a scenario that does not conflict with anything else we will c
 6. Add the [Rest Test Script](./test/example-service.http)
     - At this point you developed the basic service that works locally and can be deployed, but is not functioning in the cloud yet.
 7. Added some [custom handlers](./srv/handlers/example.js) and some [supporting functions](./srv/handlers/supportfunctions.js) to allow for the storage and read of spatial data in a HANA environment.
-8. To expose the service as REST GeoJSON service we create a file with the name [server.js](./srv/server.js) in the srv directory (must be in this directory). The content in this file allows for the addition of an express server endpoint during the bootstrap process. This functionality also converts the OData response to GeoJSON.
-    - You can now access the service via the following URL: [host]/geojson
+8. To expose the service as REST GeoJSON service we create a second service called GeoJSON with the following [service defintion](./srv/geojson.cds) and [implementation](./srv/handlers/geojson.js) 
+    - The implementation does some conversion specific to HANA databases as well as to GeoJSON.
+    - You can now access the service via the following URL: [host]/geojson/RealtimeLocations
+    - Find more details on the approach in this [SAP Community blog post](https://blogs.sap.com/?p=1404810?source=email-global-notification-bp-new-in-tag-followed)
 9. To remove CORS restriction you can add an app router
   - see files in directory /approuter
   - make the following changes in the mta.yaml file

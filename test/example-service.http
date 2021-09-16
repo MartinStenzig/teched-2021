@@ -1,8 +1,8 @@
-# @serviceHost=http://localhost:4004
+## @serviceHost=http://localhost:4004
 @serviceHost=<route to teched-2021-srv>
-
 @approuter=<route to teched-2021-router>
 @serviceName=/nssexample
+@geojsonserviceName=/geojson
 @rtlEntity=RealtimeLocations
 
 ###
@@ -29,10 +29,10 @@ Content-Type: application/json
 DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(92434f26-f0fc-4599-9214-e522e4b85c13)
 
 ### Test GeoJSON Endpoint 
-GET {{serviceHost}}/geojson HTTP/1.1
+GET {{serviceHost}}{{geojsonserviceName}}/{{rtlEntity}} HTTP/1.1
 
 ### Test GeoJSON Endpoint through app router
-GET {{approuter}}/geojson HTTP/1.1
+GET {{approuter}}{{geojsonserviceName}}/{{rtlEntity}} HTTP/1.1
 
 ### Create Field Service Techs
 ### Write an entity
