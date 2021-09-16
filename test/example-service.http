@@ -1,7 +1,7 @@
 # @serviceHost=http://localhost:4004
-@serviceHost=
+@serviceHost=<your url>
 
-@approuter= 
+@approuter=<your url>
 @serviceName=/nssexample
 @rtlEntity=RealtimeLocations
 
@@ -23,6 +23,7 @@ Content-Type: application/json
    "status" : 1,
    "objType": "Road"
 }
+
 
 ### DELETE an entity
 DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(92434f26-f0fc-4599-9214-e522e4b85c13)
@@ -47,3 +48,47 @@ Content-Type: application/json
 }
 ### Delete Jayson
 DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(6a321034-7615-46ab-b5af-241966b55188)
+
+### Write an entity
+POST {{serviceHost}}{{serviceName}}/{{rtlEntity}}
+Content-Type: application/json
+
+{
+   "ID" : "6a321034-7615-46ab-b5af-241966b55189",
+   "rtDescription" : "Mike Browne",
+   "rtGeometry": "{\"type\":\"Point\",\"coordinates\": [-122.30637765930469, 47.58524925360429]}",
+   "status" : 2,
+   "objType": "Tech"
+}
+### Delete 
+DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(6a321034-7615-46ab-b5af-241966b55189)
+
+### Write an entity
+POST {{serviceHost}}{{serviceName}}/{{rtlEntity}}
+Content-Type: application/json
+
+{
+   "ID" : "6a321034-7615-46ab-b5af-241966b55181",
+   "rtDescription" : "Crawford Owens",
+   "rtGeometry": "{\"type\":\"Point\",\"coordinates\": [-122.33453017716124, 47.61458329546866]}",
+   "status" : 3,
+   "objType": "Tech"
+}
+### Delete 
+DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(6a321034-7615-46ab-b5af-241966b55181)
+
+### Write an entity
+POST {{serviceHost}}{{serviceName}}/{{rtlEntity}}
+Content-Type: application/json
+
+{
+   "ID" : "6a321034-7615-46ab-b5af-241966b55182",
+   "rtDescription" : "Lars Bergman",
+   "rtGeometry": "{\"type\":\"Point\",\"coordinates\": [-122.3345401934936, 47.605805830555454]}",
+   "status" : 3,
+   "objType": "Tech"
+}
+### Delete 
+DELETE {{serviceHost}}{{serviceName}}/{{rtlEntity}}(6a321034-7615-46ab-b5af-241966b55182)
+
+
