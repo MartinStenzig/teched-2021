@@ -7,7 +7,7 @@ You will use the NSS configuration app to configure the additional service.
 
 ## Prerequisites
 1. Business Network - Specifically Asset Intelligence Network (AIN) (or Test and Demo license thereof)
-2. BPT Licenses (or Trial to start with)
+2. BTP Licenses (or Trial to start with)
     - Application Runtime
     - HANA Cloud
 3. Mapbox API Key
@@ -32,7 +32,12 @@ In order to build a scenario that does not conflict with anything else we will c
 
     2. Start by Creating a new Renderer
         - **API Key:** [Paste your Mapbox API Key here, usually start with "pk..."] 
-        - **URL:** https://bnc-nss-map-sbx.cfapps.sap.hana.ondemand.com/nsc/map/
+        - **URL:**  https://bnc-nss-map.cfapps.\<region\>.hana.ondemand.com/ i.e. https://bnc-nss-map.cfapps.eu10.hana.ondemand.com/ Available Regions: 
+            1. ap10
+            2. eu10
+            3. us10
+            4. eu20
+            5. us20   
         - **Default Style:** [Copy the Mapbox style from the previous step and paste it here]
     3. Create a new Layer
         - **Type:** Symbol
